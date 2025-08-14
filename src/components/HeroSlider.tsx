@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import heroSlide1 from '@/assets/hero-slide-1.jpg';
@@ -29,24 +29,25 @@ const slides = [
   }
 ];
 
-export const HeroSlider = () => {
-  const [currentSlide, setCurrentSlide] = useState(0);
+export const HeroSlider: React.FC = () => {
+  const [currentSlide, setCurrentSlide] = useState<number>(0);
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 5000);
-
-    return () => clearInterval(timer);
+  const nextSlide = useCallback(() => {
+    setCurrentSlide((prev) => (prev + 1) % slides.length);
   }, []);
 
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % slides.length);
-  };
-
-  const prevSlide = () => {
+  const prevSlide = useCallback(() => {
     setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
-  };
+  }, []);
+
+  const goToSlide = useCallback((index: number) => {
+    setCurrentSlide(index);
+  }, []);
+
+  useEffect(() => {
+    const timer = setInterval(nextSlide, 5000);
+    return () => clearInterval(timer);
+  }, [nextSlide]);
 
   return (
     <div className="relative h-screen w-full overflow-hidden">
@@ -68,7 +69,7 @@ export const HeroSlider = () => {
             <div className="absolute inset-0 flex items-center">
               <div className="container mx-auto px-6">
                 <div className="max-w-2xl text-white">
-                  <h2 className="text-lg font-semibold text-secondary mb-2 animate-fade-in-up">
+                  <h2 className="text-lg font-semibold text-white mb-2 animate-fade-in-up">
                     {slide.subtitle}
                   </h2>
                   <h1 className="text-5xl md:text-6xl font-bold mb-6 animate-fade-in-up">
@@ -78,7 +79,7 @@ export const HeroSlider = () => {
                     {slide.description}
                   </p>
                   <div className="flex gap-4 animate-fade-in-up">
-                    <Button size="lg" variant="secondary" className="px-8">
+                    <Button size="lg" className="px-8 bg-white text-primary hover:bg-secondary-light">
                       Learn More
                     </Button>
                     <Button size="lg" variant="outline" className="px-8 text-white border-white hover:bg-white hover:text-primary">
@@ -117,9 +118,9 @@ export const HeroSlider = () => {
           <button
             key={index}
             className={`w-3 h-3 rounded-full transition-all ${
-              index === currentSlide ? 'bg-secondary scale-125' : 'bg-white/50 hover:bg-white/70'
+              index === currentSlide ? 'bg-white scale-125' : 'bg-white/50 hover:bg-white/70'
             }`}
-            onClick={() => setCurrentSlide(index)}
+            onClick={() => goToSlide(index)}
           />
         ))}
       </div>
