@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import heroSlide1 from '@/assets/hero-slide-1.jpg';
@@ -29,8 +29,8 @@ const slides = [
   }
 ];
 
-export const HeroSlider: React.FC = () => {
-  const [currentSlide, setCurrentSlide] = useState<number>(0);
+export const HeroSlider = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
 
   const nextSlide = useCallback(() => {
     setCurrentSlide((prev) => (prev + 1) % slides.length);
@@ -40,7 +40,7 @@ export const HeroSlider: React.FC = () => {
     setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
   }, []);
 
-  const goToSlide = useCallback((index: number) => {
+  const goToSlide = useCallback((index) => {
     setCurrentSlide(index);
   }, []);
 

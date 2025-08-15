@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useCallback } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import gallery1 from '@/assets/gallery-1.jpg';
@@ -47,12 +47,12 @@ const galleryImages = [
   }
 ];
 
-export const ImageSlider: React.FC = () => {
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
+export const ImageSlider = () => {
+  const scrollContainerRef = useRef(null);
   const [isAutoScrolling, setIsAutoScrolling] = useState(true);
-  const intervalRef = useRef<NodeJS.Timeout>();
+  const intervalRef = useRef();
 
-  const scrollToPosition = useCallback((position: number) => {
+  const scrollToPosition = useCallback((position) => {
     if (scrollContainerRef.current) {
       scrollContainerRef.current.scrollTo({
         left: position,
@@ -61,7 +61,7 @@ export const ImageSlider: React.FC = () => {
     }
   }, []);
 
-  const scroll = useCallback((direction: 'left' | 'right') => {
+  const scroll = useCallback((direction) => {
     if (!scrollContainerRef.current) return;
     
     const container = scrollContainerRef.current;
