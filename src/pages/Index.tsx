@@ -5,7 +5,6 @@ import { ObjectivesSection } from '@/components/ObjectivesSection';
 import { SlogansSection } from '@/components/SlogansSection';
 import { NewsSection } from '@/components/NewsSection';
 import { Footer } from '@/components/Footer';
-import { WhatsAppFloat } from '@/components/WhatsAppFloat';
 
 const Index = () => {
   return (
@@ -21,7 +20,6 @@ const Index = () => {
         <NewsSection />
       </main>
       <Footer />
-      <WhatsAppFloat />
     </div>
   );
 };

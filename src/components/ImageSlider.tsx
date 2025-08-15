@@ -76,31 +76,26 @@ export const ImageSlider: React.FC = () => {
     setTimeout(() => setIsAutoScrolling(true), 3000);
   }, [scrollToPosition]);
 
-  // Infinite auto-scroll functionality
+  // Fixed infinite auto-scroll functionality
   useEffect(() => {
     if (!isAutoScrolling) return;
 
-    const startAutoScroll = () => {
-      const container = scrollContainerRef.current;
-      if (!container) return;
+    const container = scrollContainerRef.current;
+    if (!container) return;
 
+    const startAutoScroll = () => {
       intervalRef.current = setInterval(() => {
         const maxScrollLeft = container.scrollWidth - container.clientWidth;
         const currentScroll = container.scrollLeft;
         
-        // If we're at the end, smoothly scroll back to beginning
-        if (currentScroll >= maxScrollLeft - 10) {
-          setTimeout(() => {
-            container.scrollTo({ left: 0, behavior: 'smooth' });
-          }, 500);
+        // If we're at the end, instantly reset to beginning for seamless loop
+        if (currentScroll >= maxScrollLeft - 1) {
+          container.scrollLeft = 0;
         } else {
-          // Continue scrolling forward
-          container.scrollTo({ 
-            left: currentScroll + 1, 
-            behavior: 'auto' 
-          });
+          // Continue scrolling forward smoothly
+          container.scrollLeft += 2;
         }
-      }, 20); // Smooth continuous scrolling
+      }, 30); // Smooth scrolling speed
     };
 
     startAutoScroll();
@@ -145,7 +140,7 @@ export const ImageSlider: React.FC = () => {
             {[...galleryImages, ...galleryImages].map((image, index) => (
               <div
                 key={`${image.id}-${index}`}
-                className="flex-shrink-0 w-80 bg-white rounded-2xl shadow-custom-lg hover:shadow-custom-xl transition-all duration-300 hover:-translate-y-2 group/card overflow-hidden border border-primary/10"
+                className="flex-shrink-0 w-80 bg-white rounded-2xl border border-primary/10 hover:border-primary/20 transition-all duration-300 hover:-translate-y-1 group/card overflow-hidden"
               >
                 <div className="relative h-48 overflow-hidden">
                   <img
@@ -171,7 +166,7 @@ export const ImageSlider: React.FC = () => {
           <Button
             variant="outline"
             size="icon"
-            className="absolute left-0 top-1/2 -translate-y-1/2 bg-white/95 border-primary/20 shadow-custom-md opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-primary hover:text-white hover:border-primary"
+            className="absolute left-0 top-1/2 -translate-y-1/2 bg-white/95 border-primary/20 opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-primary hover:text-white hover:border-primary"
             onClick={() => scroll('left')}
           >
             <ChevronLeft className="h-5 w-5" />
@@ -180,15 +175,12 @@ export const ImageSlider: React.FC = () => {
           <Button
             variant="outline"
             size="icon"
-            className="absolute right-0 top-1/2 -translate-y-1/2 bg-white/95 border-primary/20 shadow-custom-md opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-primary hover:text-white hover:border-primary"
+            className="absolute right-0 top-1/2 -translate-y-1/2 bg-white/95 border-primary/20 opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-primary hover:text-white hover:border-primary"
             onClick={() => scroll('right')}
           >
             <ChevronRight className="h-5 w-5" />
           </Button>
 
-          {/* Gradient Overlays */}
-          <div className="absolute left-0 top-0 w-20 h-full bg-gradient-to-r from-white via-white/50 to-transparent pointer-events-none" />
-          <div className="absolute right-0 top-0 w-20 h-full bg-gradient-to-l from-white via-white/50 to-transparent pointer-events-none" />
         </div>
       </div>
     </section>

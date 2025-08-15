@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Menu, X, MessageCircle } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import sagantanLogo from '@/assets/sagantan-logo.png';
 
@@ -15,7 +15,7 @@ export const Header = () => {
   ];
 
   return (
-    <header className="fixed top-0 w-full bg-white/95 backdrop-blur-sm shadow-custom-md z-50 transition-all">
+    <header className="fixed top-0 w-full bg-white/95 backdrop-blur-sm border-b border-border z-50 transition-all">
       <div className="container mx-auto px-6">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
@@ -40,15 +40,20 @@ export const Header = () => {
             ))}
           </nav>
 
-          {/* WhatsApp & Menu */}
+          {/* Admin & Login & Menu */}
           <div className="flex items-center gap-4">
             <Button
               size="sm"
-              className="bg-green-500 hover:bg-green-600 text-white"
-              onClick={() => window.open('https://wa.me/+1234567890', '_blank')}
+              variant="outline"
+              className="border-primary text-primary hover:bg-primary hover:text-white"
             >
-              <MessageCircle className="h-4 w-4 mr-2" />
-              WhatsApp
+              ADMIN
+            </Button>
+            <Button
+              size="sm"
+              className="bg-primary text-white hover:bg-primary/90"
+            >
+              LOGIN
             </Button>
             
             <Button
