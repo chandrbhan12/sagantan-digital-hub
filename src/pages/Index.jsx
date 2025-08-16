@@ -5,6 +5,7 @@ import { ObjectivesSection } from '@/components/ObjectivesSection';
 import { SlogansSection } from '@/components/SlogansSection';
 import { NewsSection } from '@/components/NewsSection';
 import { Footer } from '@/components/Footer';
+import { WhatsAppFloat } from '@/components/WhatsAppFloat';
 
 const Index = () => {
   return (
@@ -14,12 +15,15 @@ const Index = () => {
         <section id="home">
           <HeroSlider />
         </section>
-        <ImageSlider />
+        <section id="services">
+          <ImageSlider />
+        </section>
         <ObjectivesSection />
         <SlogansSection />
         <NewsSection />
       </main>
       <Footer />
+      <WhatsAppFloat />
     </div>
   );
 };

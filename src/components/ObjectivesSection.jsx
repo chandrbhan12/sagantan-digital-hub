@@ -29,7 +29,7 @@ export const ObjectivesSection = () => {
     <section id="about" className="py-20 bg-section-gradient">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-primary mb-4">Our Objectives</h2>
+          <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4">Our Objectives</h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             At Sagantan Digital Hub, we are committed to transforming businesses through innovative digital solutions
             and strategic partnerships that create lasting value.
